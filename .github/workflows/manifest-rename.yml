@@ -18,7 +18,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: "Replace Paramaters."
-        run: sed 's/${ENVIORMENT}/REPLACE-HERE/g' nginx-ingress.yml
+        run: sed 's/${ENVIORMENT}/REPLACEHERE/g' nginx-ingress.yml
       - name: commit manifests and push
         run: |
           git config --global user.email workflow@example.com""
