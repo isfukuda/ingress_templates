@@ -1,0 +1,27 @@
+name: Action Sample
+
+on:
+  push:
+    branches: 
+      - staging
+  # workflow_dispatch:
+
+jobs:
+  replace-parameters:
+    runs-on: ubuntu-latest
+    env:
+      REPO: https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
+      ENVIORMENT: prd
+    steps:
+      - name: 
+        run: echo "Replace Paramaters."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: "Replace Paramaters."
+        run: sed 's/${ENVIORMENT}/REPLACE-HERE/g' nginx-ingress.yml
+      - name: commit manifests and push
+        run: |
+          git config --global user.email workflow@example.com""
+          git config --global user.name "workflow user"
+          git add .
+          git commit -m 'modify nginx-ingress.yml' && git push ${REPO} || true
